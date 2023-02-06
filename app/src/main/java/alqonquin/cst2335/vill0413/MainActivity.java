@@ -2,7 +2,9 @@ package alqonquin.cst2335.vill0413;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
@@ -11,18 +13,29 @@ import android.widget.EditText;
 public class MainActivity extends AppCompatActivity {
     private static String TAG = "MainActivity";
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         Log.w(TAG, "In onCreate() - Loading Widgets" );
-        Button loginButton = (Button) findViewById(R.id.button1);
-        EditText emailEditText = (EditText) findViewById(R.id.editTextTextPersonName);
-        loginButton.setOnClickListener( clk -> {
+
+        Button loginButton = (Button) findViewById(R.id.login);
+        EditText emailEditText = (EditText) findViewById(R.id.emailText);
+
+        SharedPreferences prefs = getSharedPreferences("MyData", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        String emailAddress = prefs.getString("LoginName", "");
+        emailEditText.setText(emailAddress);
+
+        loginButton.setOnClickListener(clk -> {
+
+            editor.putString("LoginName", emailEditText.getText().toString());
+            editor.apply();
+
             Intent nextPage = new Intent( MainActivity.this, SecondActivity.class);
             nextPage.putExtra( "EmailAddress", emailEditText.getText().toString() );
-            startActivity( nextPage);
+            startActivity(nextPage);
         });
     }
 

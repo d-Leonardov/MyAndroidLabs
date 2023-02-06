@@ -24,7 +24,7 @@
             android:text="Enter your email address" />
 
         <EditText
-            android:id="@+id/editTextTextPersonName"
+            android:id="@+id/emailText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -44,7 +44,7 @@
             android:inputType="textPassword" />
 
         <Button
-            android:id="@+id/button1"
+            android:id="@+id/login"
             android:layout_width="match_parent"
             android:layout_height="62dp"
             android:text="LOGIN"
