@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Leonardo\'s Android Labs</string>
-    <string name="hello_message">Hola Mundo!</string>
-    <string name="button_message">Soy un botòn</string>
+    <string name="email_message">Ingrese aqui su email</string>
+    <string name="password_message">Ingrese su contrasena</string>
 </resources>
