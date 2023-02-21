@@ -11,20 +11,26 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
-import alqonquin.cst2335.vill0413.data.ChatRoomViewModel;
+import alqonquin.cst2335.vill0413.data.ChatMessage;
 import alqonquin.cst2335.vill0413.databinding.ActivityChatRoomBinding;
+import alqonquin.cst2335.vill0413.databinding.ReceiveMessageBinding;
 import alqonquin.cst2335.vill0413.databinding.SentMessageBinding;
 
 public class ChatRoom extends AppCompatActivity {
 
 	ActivityChatRoomBinding binding;
-	ArrayList<String> messages ;
+	ArrayList<ChatMessage> messages ;
 
 	public RecyclerView.Adapter myAdapter;
 
-	ChatRoomViewModel chatModel;
+	ChatMessage chat = new ChatMessage("","",false);
+
+	SimpleDateFormat sdf = new SimpleDateFormat("EEEE, dd-MMM-yyyy hh-mm-ss a");
+	String currentDateandTimendTime = sdf.format(new Date());
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -33,30 +39,56 @@ public class ChatRoom extends AppCompatActivity {
 		binding = ActivityChatRoomBinding.inflate(getLayoutInflater());
 		setContentView(binding.getRoot());
 
-		chatModel = new ViewModelProvider(this).get(ChatRoomViewModel.class);
+		chat = new ViewModelProvider(this).get(ChatMessage.class);
 
-		messages = chatModel.messages.getValue();
+		messages = chat.messages.getValue();
 
 		if(messages == null)
 		{
-			chatModel.messages.postValue( messages = new ArrayList<String>());
+			chat.messages.postValue( messages = new ArrayList<ChatMessage>());
 		}
+
+		binding.sendButton.setOnClickListener( click ->{
+
+			String message = binding.textInput.getText().toString();
+			boolean sentButton = true;
+			chat = new ChatMessage(message,currentDateandTimendTime, sentButton );
+			messages.add(chat);
+			myAdapter.notifyItemInserted(messages.size()-1);
+			binding.textInput.setText("");
+
+		});
+
+		binding.receiveButton.setOnClickListener( click ->{
+
+			String message = binding.textInput.getText().toString();
+			boolean sentButton = false;
+			chat = new ChatMessage(message,currentDateandTimendTime, sentButton );
+			messages.add(chat);
+			myAdapter.notifyItemInserted(messages.size()-1);
+			binding.textInput.setText("");
+
+		});
 
 		binding.recycleView.setAdapter(myAdapter = new RecyclerView.Adapter<MyRowHolder>() {
 
 			@NonNull
 			@Override
 			public MyRowHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-				SentMessageBinding binding = SentMessageBinding.inflate(getLayoutInflater());
-				return new MyRowHolder(binding.getRoot());
+				if (viewType == 0) {
+					SentMessageBinding binding = SentMessageBinding.inflate(getLayoutInflater());
+					return new MyRowHolder(binding.getRoot());
+				} else {
+					ReceiveMessageBinding binding = ReceiveMessageBinding.inflate(getLayoutInflater());
+					return new MyRowHolder(binding.getRoot());
+				}
 			}
 
 			@Override
 			public void onBindViewHolder(@NonNull MyRowHolder holder, int position) {
-				String messageOnRow = messages.get(position);
-
-				holder.messageText.setText(messageOnRow);
-				holder.timeText.setText("");
+				ChatMessage chatMessage = messages.get(position);
+				holder.messageText.setText(chatMessage.getMessage());
+				holder.timeText.setText(chatMessage.getTimeSent());
 			}
 
 			@Override
@@ -65,21 +97,17 @@ public class ChatRoom extends AppCompatActivity {
 			}
 
 			public int getItemViewType(int position){
-				return 0;
+				ChatMessage chatMessage = messages.get(position);
+				if (chatMessage.isSentButton()) {
+					return 0;
+				} else {
+					return 1;
+				}
 			}
-
 		});
 
 		binding.recycleView.setLayoutManager(new LinearLayoutManager(this));
-
-		binding.sendButton.setOnClickListener( click ->{
-			messages.add(binding.textInput.getText().toString());
-			myAdapter.notifyItemInserted(messages.size()-1);
-			binding.textInput.setText("");
-		});
-
 	}
-
 	class MyRowHolder extends RecyclerView.ViewHolder {
 
 		public TextView messageText;

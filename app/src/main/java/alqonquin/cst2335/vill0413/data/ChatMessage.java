@@ -1,18 +1,22 @@
 package alqonquin.cst2335.vill0413.data;
 
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
 
 import java.util.ArrayList;
 
-public class ChatMessage {
+public class ChatMessage extends ViewModel {
 
 	private String message;
 	private String timeSent;
 	private boolean isSentButton;
 
-	public MutableLiveData<ArrayList<String>> messages = new MutableLiveData< >();
+	public MutableLiveData<ArrayList<ChatMessage>> messages = new MutableLiveData<ArrayList<ChatMessage>>();
 
-	ChatMessage(String m, String t, boolean sent) {
+	public ChatMessage() {
+	}
+
+	public ChatMessage(String m, String t, boolean sent) {
 		message = m;
 		timeSent = t;
 		isSentButton = sent;
