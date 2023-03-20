@@ -7,7 +7,7 @@
     <color name="my_statusbar">#686363</color>
     <color name="Statusbar">#3A3838</color>
     <color name="my_text">#181819</color>
-
+    <color name="purple_200">#BFD582D5</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 </resources>

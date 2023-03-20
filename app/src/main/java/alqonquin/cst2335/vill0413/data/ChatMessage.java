@@ -1,24 +1,20 @@
 package alqonquin.cst2335.vill0413.data;
 
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
-
-import java.util.ArrayList;
 
 @Entity
 public class ChatMessage {
 
 	@ColumnInfo(name="message")
-	protected String message;
+	public String message;
 
 	@ColumnInfo(name="TimeSent")
-	private String timeSent;
+	public String timeSent;
 
 	@ColumnInfo(name="isSentButton")
-	private boolean isSentButton;
+	public boolean isSentButton;
 
 	@PrimaryKey (autoGenerate = true)
 	@ColumnInfo (name="id")
@@ -42,11 +38,15 @@ public class ChatMessage {
 		return timeSent;
 	}
 
+	public int getId(){
+		return id;
+	}
+
 	public boolean isSentButton() {
 		return isSentButton;
 	}
 
-	public void setMessage(String message) {
+	/*public void setMessage(String message) {
 		this.message = message;
 	}
 
@@ -58,4 +58,6 @@ public class ChatMessage {
 		isSentButton = isSentButton;
 	}
 
+
+*/
 }
