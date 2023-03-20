@@ -16,10 +16,10 @@ public interface ChatMessageDAO {
 	public long insertMessage(ChatMessage m);
 
 	@Query("Select * from ChatMessage")
-	public List<ChatMessage> getAllMessages();
+	List<ChatMessage> getAllMessages();
 
 	@Delete
-	public void deleteMessage(ChatMessage m);
+	public int deleteMessage(ChatMessage m);
 
 
 

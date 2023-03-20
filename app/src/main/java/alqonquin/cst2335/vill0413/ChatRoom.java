@@ -42,6 +42,7 @@ public class ChatRoom extends AppCompatActivity {
 	String currentDateandTimendTime = sdf.format(new Date());
 	ChatMessageDAO mDAO;
 
+	Executor thread = Executors.newSingleThreadExecutor();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -74,8 +75,12 @@ public class ChatRoom extends AppCompatActivity {
 
 			String message = binding.textInput.getText().toString();
 			boolean sentButton = true;
-			chat = new ChatMessage(message,currentDateandTimendTime, sentButton );
+			ChatMessage chat = new ChatMessage(message,currentDateandTimendTime, sentButton );
 			messages.add(chat);
+			thread.execute(() ->
+			{
+				chat.id = mDAO.insertMessage(chat);
+			});
 			myAdapter.notifyItemInserted(messages.size()-1);
 			binding.textInput.setText("");
 
@@ -87,6 +92,11 @@ public class ChatRoom extends AppCompatActivity {
 			boolean sentButton = false;
 			chat = new ChatMessage(message,currentDateandTimendTime, sentButton );
 			messages.add(chat);
+			thread.execute(() ->
+			{
+				chat.id = mDAO.insertMessage(chat);
+			});
+
 			myAdapter.notifyItemInserted(messages.size()-1);
 			binding.textInput.setText("");
 
@@ -149,12 +159,20 @@ public class ChatRoom extends AppCompatActivity {
 				.setPositiveButton("YES",(dialog, cl) -> {
 
 					ChatMessage removedMessage = messages.get(position);
+					thread.execute(() ->
+					{
+						removedMessage.id = mDAO.deleteMessage(removedMessage);
+					});
 					messages.remove(position);
 					myAdapter.notifyItemRemoved(position);
 
 					Snackbar.make(messageText,"You deleted message # " + position,
 							Snackbar.LENGTH_LONG)
 							.setAction("Undo", clk ->{
+								thread.execute(() ->
+								{
+									removedMessage.id = mDAO.insertMessage(removedMessage);
+								});
 								messages.add(position,removedMessage);
 								myAdapter.notifyItemInserted(position);
 							})
