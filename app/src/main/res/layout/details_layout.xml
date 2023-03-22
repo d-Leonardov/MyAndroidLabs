@@ -4,7 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white">
 
     <TextView
         android:id="@+id/messageText"
@@ -13,8 +14,8 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
         android:text="Message goes here"
-        android:textColor="#FDFCFC"
-        android:textSize="30sp"
+        android:textColor="#0E0E0E"
+        android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -25,8 +26,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:text="Times goes here"
-        android:textColor="#FFFFFF"
-        android:textSize="24sp"
+        android:textColor="#020202"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/messageText"
         app:layout_constraintTop_toBottomOf="@+id/messageText" />
@@ -37,8 +38,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
         android:text="send receive goes here"
-        android:textColor="#FFFFFF"
-        android:textSize="30sp"
+        android:textColor="#0E0E0E"
+        android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/timeText"
         app:layout_constraintTop_toBottomOf="@+id/timeText" />
@@ -49,8 +50,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:text="Database ID goes here"
-        android:textColor="#FFFFFF"
-        android:textSize="30sp"
+        android:textColor="#070707"
+        android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/textView5"
         app:layout_constraintTop_toBottomOf="@+id/textView5" />

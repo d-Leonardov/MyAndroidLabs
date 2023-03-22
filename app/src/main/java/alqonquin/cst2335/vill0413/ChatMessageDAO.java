@@ -13,13 +13,13 @@ import alqonquin.cst2335.vill0413.data.ChatMessage;
 public interface ChatMessageDAO {
 
 	@Insert
-	public long insertMessage(ChatMessage m);
+	long insertMessage(ChatMessage m);
 
 	@Query("Select * from ChatMessage")
-	public List<ChatMessage> getAllMessages();
+	List<ChatMessage> getAllMessages();
 
 	@Delete
-	public void deleteMessage(ChatMessage m);
+	int deleteMessage(ChatMessage m);
 
 
 
