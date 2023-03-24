@@ -1,10 +1,17 @@
 package alqonquin.cst2335.vill0413;
 
+import static androidx.constraintlayout.widget.ConstraintLayoutStates.TAG;
+
 import android.app.AlertDialog;
+import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -43,8 +50,60 @@ public class ChatRoom extends AppCompatActivity {
 	SimpleDateFormat sdf = new SimpleDateFormat("EEEE, dd-MMM-yyyy hh-mm-ss a");
 	String currentDateAndTime = sdf.format(new Date());
 	ChatMessageDAO mDAO;
-
 	Executor thread = Executors.newSingleThreadExecutor();
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		super.onCreateOptionsMenu(menu);
+		getMenuInflater().inflate(R.menu.my_menu, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+
+		MyRowHolder mrh = new MyRowHolder(binding.recycleView);
+
+		switch( item.getItemId()) {
+			case R.id.item_1:
+
+				if (messages.isEmpty()) {
+					Toast.makeText(this, "No messages to delete", Toast.LENGTH_SHORT).show();
+					break;
+				}
+
+				//put your ChatMessage deletion code here. If you select this item, you should show the alert dialog
+				//asking if the user wants to delete this message.
+
+				try {
+					int position = (mrh.getAbsoluteAdapterPosition())+1;
+					ChatMessage cm = messages.get(position);
+					AlertDialog.Builder builder = new AlertDialog.Builder(ChatRoom.this);
+					builder.setMessage("Do you want to delete the message: " + cm.getMessage())
+							.setNegativeButton("NO", (dialog, cl) -> {
+							})
+							.setPositiveButton("YES", (dialog, cl) -> {
+
+								thread.execute(() ->
+								{
+									mDAO.deleteMessage(cm);
+								});
+								messages.remove(position);
+								myAdapter.notifyItemRemoved(position);
+							})
+							.create()
+							.show();
+				}catch (IndexOutOfBoundsException e) {
+					Toast.makeText(this, "Invalid message position", Toast.LENGTH_SHORT).show();
+				}
+				break;
+
+			case R.id.item_2:
+				Toast.makeText(this, "Version 1.0, created by Leonardo Villalobos",
+						Toast.LENGTH_SHORT).show();
+				break;
+		}
+		return true;
+	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +115,7 @@ public class ChatRoom extends AppCompatActivity {
 
 		binding = ActivityChatRoomBinding.inflate(getLayoutInflater());
 		setContentView(binding.getRoot());
+		setSupportActionBar(binding.myToolbar);
 
 		chatModel = new ViewModelProvider(this).get(ChatRoomViewModel.class);
 		messages = chatModel.messages.getValue();
@@ -162,7 +222,8 @@ public class ChatRoom extends AppCompatActivity {
 				ChatMessage selected = messages.get(position);
 				chatModel.selectedMessage.postValue(selected);
 
-			/*AlertDialog.Builder builder = new AlertDialog.Builder( ChatRoom.this );
+
+				/*AlertDialog.Builder builder = new AlertDialog.Builder( ChatRoom.this );
 				builder.setMessage("Do you want to delete the message: " +
 						messageText.getText())
 				.setTitle("Question:")
@@ -188,13 +249,14 @@ public class ChatRoom extends AppCompatActivity {
 								messages.add(position,removedMessage);
 								myAdapter.notifyItemInserted(position);
 							})
-							.show();
-				})
+							.show();*/
+			/*	})
 				.create()
 				.show();*/
 			});
 			messageText = itemView.findViewById(R.id.message);
 			timeText = itemView.findViewById(R.id.time);
-			};
-		}
+
+		};
 	}
+}

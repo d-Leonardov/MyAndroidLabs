@@ -21,6 +21,7 @@
              android:id="@+id/recycleView"
              android:layout_width="0dp"
              android:layout_height="0dp"
+             android:layout_marginTop="50dp"
              android:backgroundTint="#1321FA"
              android:foregroundTint="#0F42DC"
              app:layout_constraintBottom_toTopOf="@+id/textInput"
@@ -28,6 +29,14 @@
              app:layout_constraintStart_toStartOf="parent"
              app:layout_constraintTop_toTopOf="parent"
              app:layout_constraintVertical_bias="1.0" />
+         
+         <androidx.appcompat.widget.Toolbar
+             android:id="@+id/myToolbar"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             tools:ignore="MissingConstraints">
+
+         </androidx.appcompat.widget.Toolbar>
 
          <EditText
              android:id="@+id/textInput"
