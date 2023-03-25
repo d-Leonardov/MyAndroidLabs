@@ -34,6 +34,7 @@
              android:id="@+id/myToolbar"
              android:layout_width="match_parent"
              android:layout_height="wrap_content"
+             android:background="@color/red"
              tools:ignore="MissingConstraints">
 
          </androidx.appcompat.widget.Toolbar>

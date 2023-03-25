@@ -2,6 +2,8 @@ package alqonquin.cst2335.vill0413;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -23,6 +25,7 @@ public class MessageDetailsFragment extends Fragment {
 	public View onCreateView( LayoutInflater inflater, ViewGroup container,Bundle
 			savedInstanceState) {
 		super.onCreateView(inflater, container, savedInstanceState);
+
 		DetailsLayoutBinding binding = DetailsLayoutBinding.inflate(inflater);
 		binding.messageText.setText(selected.message);
 		binding.timeText.setText(selected.timeSent);
