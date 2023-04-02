@@ -1,5 +1,12 @@
 <resources>
-    <string name="app_name">Leonardo\'s Android Labs</string>
-    <string name="password_message">Type your password</string>
-    <string name="button_message">Login</string>
+    <string name="app_name">Leonardo\'s Android Labs - Lab10</string>
+    <string name="textView1">Type in the name of a city:</string>
+    <string name="button1">GET FORECAST</string>
+    <string name="editText1">Type city name here</string>
+    <string name="textView2">Temp goes here</string>
+    <string name="textView3">Max temp goes here</string>
+    <string name="textView4">Min temp goes here</string>
+    <string name="textView5">Humidity goes here</string>
+    <string name="textView6">Description goes here</string>
+
 </resources>

@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Laboratorio Android de Leonardo</string>
-    <string name="password_message">Ingrese su contraseña</string>
-    <string name="button_message">Ingresar</string>
+    <string name="textView1">Ingrese aqui el nombre de la ciudad :</string>
+    <string name="button1">OBTENER PRONOSTICO</string>
+    <string name="editText1">Ingrese la ciudad aqui</string>
+    <string name="textView2">La temperatura aparece aqui</string>
+    <string name="textView3">La temperatura maxima aparece aqui</string>
+    <string name="textView4">La temperatura minima aparece aqui</string>
+    <string name="textView5">La humedad aparece aqui</string>
+    <string name="textView6">La description aparece aqui</string>
 </resources>
